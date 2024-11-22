@@ -109,7 +109,9 @@ if __name__ == "__main__":
         exit(1)
         
   print(f"Scanning directory: {imageDir}")
-  # print(f"Files in image directory: {os.listdir(imageDir)}")
+  print(f"Files in /root/data: {os.listdir('/root/data/images')}")
+  print(f"Files in image directory: {os.listdir(imageDir)}")
+  
 
   for root, dirs, files in os.walk(imageDir):
     for f in files:
