@@ -4,6 +4,11 @@ import numpy as np
 import re
 import os
 #model_dir='/root/test/'
+
+# 添加日志输出
+print("Current working directory:", os.getcwd())
+print("Files in current directory:", os.listdir('./'))
+
 model_dir='./'
 #将类别ID转换为人类易读的标签
 class NodeLookup(object):
@@ -16,6 +21,11 @@ class NodeLookup(object):
     if not uid_lookup_path:
       uid_lookup_path = os.path.join(
           model_dir, 'imagenet_synset_to_human_label_map.txt')
+    
+    # 检查文件是否存在
+    print("Checking if label_lookup_path exists:", os.path.exists(label_lookup_path))
+    print("Checking if uid_lookup_path exists:", os.path.exists(uid_lookup_path))
+    
     self.node_lookup = self.load(label_lookup_path, uid_lookup_path)
   def load(self, label_lookup_path, uid_lookup_path):
     if not tf.io.gfile.exists(uid_lookup_path):
@@ -61,6 +71,14 @@ def create_graph():
     tf.import_graph_def(graph_def, name='')
 
 def classify_graph(imageFile):
+
+  # 检查图片文件是否存在
+  if not os.path.exists(imageFile):
+        print(f"Error: Image file not found: {imageFile}")
+        return
+        
+  print(f"Processing image: {imageFile}")
+
   #读取图片
   image_data = tf.io.gfile.GFile(imageFile, 'rb').read()
   #创建graph
@@ -84,6 +102,15 @@ def classify_graph(imageFile):
 
 if __name__ == "__main__":
   imageDir = "/root/data/images"
+
+    # 检查图片目录是否存在
+  if not os.path.exists(imageDir):
+        print(f"Error: Image directory not found: {imageDir}")
+        exit(1)
+        
+  print(f"Scanning directory: {imageDir}")
+  print(f"Files in image directory: {os.listdir(imageDir)}")
+
   for root, dirs, files in os.walk(imageDir):
     for f in files:
       print(os.path.join(root, f))
