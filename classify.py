@@ -101,8 +101,8 @@ def classify_graph(imageFile):
   sess.close()
 
 if __name__ == "__main__":
-  # imageDir = "/root/data/images"
-  imageDir = "/root/code/tensorflow-labex/images"
+  imageDir = "/root/data/images"
+  # imageDir = "/root/code/tensorflow-labex/images"
 
     # 检查图片目录是否存在
   if not os.path.exists(imageDir):
